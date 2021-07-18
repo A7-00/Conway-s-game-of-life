@@ -1,4 +1,4 @@
-/*  hey! this my implementation of Conway's game of life,
+/*  hey! this is my implementation of Conway's game of life,
     my first code that I ever post to my Github and also my first project with OpenGL.
     I will be more than happy to hear your feedback on all of it; how it's putout on Github,
     how it's implemented, my style of writing code; all of it. please email me at a7Electronics.AS@ieee.org */
@@ -20,17 +20,17 @@ double mouseX;
 double mouseY; // the mouse variables where the mouse position will be stored
 
 bool start = FALSE; // start flag
-// The game will stop showing the opening screen and proceed to the game when this flag goes high
+// The game will stop showing the start menu and proceed to the game when this flag goes true
 
 struct arrays{
     bool cell [52][52]; // the cells on a certain generation
     // with an extra blank border of cells to avoid out of index exception
-    bool cell_next [52][52]; // the cells of the next generation, they are stored a separate array so that the already
-    // changed neighboring cells that preceded to the next generation dont effect the result of cells that didn't
+    bool cell_next [52][52]; // the cells of the next generation, they are stored as a separate array so that the already
+    // changed neighboring cells that preceded to the next generation don't effect the result of the cells that didn't
 };
 
 arrays cells; // the struct "arrays" was used to make it easier to store older generations to be able to back step
-std::vector<arrays> v1; // a container that stores older generations in
+std::vector<arrays> v1; // a container to stores older generations in
 
 void SKeyInput(int key, int x, int y) { //Special key function, an event function provided by OpenGl that tigers on keypress
     //key represents the value of the key that was pressed, x and y are needed for the argument but in my case are ignored
@@ -38,7 +38,7 @@ void SKeyInput(int key, int x, int y) { //Special key function, an event functio
     if(start) { // if the user clicked the start button
         switch (key) {
             case GLUT_KEY_RIGHT: // if the user pressed the right button the cells move up a generation
-                v1.push_back(cells); //saving current generation before proceeding
+                v1.push_back(cells); //saving the current generation before proceeding
                 for (int i = 1; i < 51; ++i) {
                     for (int j = 1; j < 51; ++j) { // the nested for loops iterate all the cells ignoring the extra boarder
                         switch (cells.cell[i - 1][j - 1] + cells.cell[i - 1][j] + cells.cell[i - 1][j + 1]
@@ -121,7 +121,7 @@ void click (int btn, int state,int x,int y){ //mouse click function, an event fu
 
 void PrintS(char* str, float x, float y, void* font){ //Special function I used to make it easier to display text
     //on the screen, str in the text being displayed, x,y are the position of the cursor on the screen,
-    // font represents the fount to write in
+    // font represents the font to write in
 
     glRasterPos2d(x, y);
     int n = strlen(str);
@@ -172,7 +172,7 @@ static void display(){ // the display function for OpenGL
                     glEnd();
                 }
             }
-        } //drawing the live cells
+        } //drawing the alive cells
 
     }
 
@@ -216,7 +216,7 @@ static void display(){ // the display function for OpenGL
 
 int main(int argc, char *argv[]){
 
-    v1.push_back(cells); // storing the initial blank state
+    v1.push_back(cells); // storing the initial blank state in v1
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE );
     glutInitWindowSize (phyWidth, phyHeight);
